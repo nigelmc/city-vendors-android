@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+C:\_repos\city-vendors-android\CityVendor\.metadata\.plugins\org.eclipse.jdt.core
+2221731632.index
+2395531426.index
+2679173905.index

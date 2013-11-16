@@ -1,0 +1,84 @@
+package com.terabytz.cityvendor;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import android.app.Activity;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class SetLocation extends Activity implements OnClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_set_location);
+    	findViewById(R.id.button1).setOnClickListener((OnClickListener) this);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.set_location, menu);
+        return true;
+    }
+    
+	@Override
+	public void onClick(View arg0) {
+		Button b = (Button)findViewById(R.id.button1);
+		//b.setClickable(false);
+		URL url = null;
+		try {
+			url = new URL("http://198.46.149.112:8080/city-vendors-0.1.0.BUILD-SNAPSHOT/locations");
+
+		HttpURLConnection httpCon = null;
+
+			httpCon = (HttpURLConnection) url.openConnection();
+
+		httpCon.setDoOutput(true);
+
+			httpCon.setRequestMethod("PUT");
+
+		OutputStreamWriter out = null;
+
+			out = new OutputStreamWriter(
+			    httpCon.getOutputStream());
+
+			out.write("{id:1,latitude:33.7550,longitude:84.3900,name:fromandroid,vendor:testvendor,version:1}");
+
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//new LongRunningGetIO().execute();
+	}
+	
+}
+
+
+
